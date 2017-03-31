@@ -1,8 +1,8 @@
 ## Println Fprintf Printf ##
 
-fmt.Println
+fmt.Println 打印值
 
-fmt.Fprintf
+fmt.Fprintf 指定输出对象
 
 fmt.Printf(format string) 输出字符串
 
