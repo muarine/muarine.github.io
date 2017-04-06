@@ -1,3 +1,4 @@
+[TOC]
 ## 编程规约
 ### 命名规约
 ``` readme
@@ -142,11 +143,11 @@ B) 领域模型命名规约
 4.【强制】对外暴露的接口签名,原则上不允许修改方法签名,避免对接口调用方产生影响。接 口过时必须加@Deprecated 注解,并清晰地说明采用的新接口或者新服务是什么。
 5.【强制】不能使用过时的类或方法。
 	说明:java.net.URLDecoder 中的方法 decode(String encodeStr) 这个方法已经过时,应该 使用双参数 decode(String source, String encode)。接口 供方既然明确是过时接口,那 么有义务同时 供新的接口;作为调用方来说,有义务去考证过时方法的新实现是什么。
-6.【强制】Object的equals方法容易抛空指针异常,应使用常量或确定有值的对象来调用equals。 
+6.【强制】Object的equals方法容易抛空指针异常,应使用常量或确定有值的对象来调用equals。
 	正例: "test".equals(object);
 	反例: object.equals("test");
 	说明:推荐使用 java.util.Objects#equals (JDK7 引入的工具类)
-7.【强制】所有的相同类型的包装类对象之间值的比较,全部使用 equals 方法比较。 
+7.【强制】所有的相同类型的包装类对象之间值的比较,全部使用 equals 方法比较。
 	说明:对于 Integer var=?在-128 至 127 之间的赋值,Integer 对象是在 IntegerCache.cache 产生,会复用已有对象,这个区间内的 Integer 值可以直接使用==进行判断,但是这个区间之 外的所有数据,都会在堆上产生,并不会复用已有对象,这是一个大坑,推荐使用 equals 方法进行判断。
 8.【强制】关于基本数据类型与包装数据类型的使用标准如下:
 	1) 所有的 POJO 类属性必须使用包装数据类型。
@@ -188,7 +189,7 @@ B) 领域模型命名规约
 19.【推荐】慎用 Object 的 clone 方法来拷贝对象。
 	说明:对象的 clone 方法默认是浅拷贝,若想实现深拷贝需要重写 clone 方法实现属性对象的 拷贝。
 20.【推荐】类成员与方法访问控制从严:
-	1) 如果不允许外部直接通过 new 来创建对象,那么构造方法必须是 private。 
+	1) 如果不允许外部直接通过 new 来创建对象,那么构造方法必须是 private。
 	2) 工具类不允许有 public 或 default 构造方法。
 	3) 类非 static 成员变量并且与子类共享,必须是 protected。
 	4) 类非 static 成员变量并且仅在本类使用,必须是 private。
@@ -203,7 +204,7 @@ B) 领域模型命名规约
 ```README
 10.【强制】Map/Set 的 key 为自定义对象时,必须重写 hashCode 和 equals。
 	正例:String 重写了 hashCode 和 equals 方法,所以我们可以非常愉快地使用 String 对象作为 key 来使用。
-11.【强制】ArrayList 的 subList 结果不可强转成 ArrayList,否则会抛出 ClassCastException 异常:java.util.RandomAccessSubList cannot be cast to java.util.ArrayList ; 
+11.【强制】ArrayList 的 subList 结果不可强转成 ArrayList,否则会抛出 ClassCastException 异常:java.util.RandomAccessSubList cannot be cast to java.util.ArrayList ;
 	说明:subList 返回的是 ArrayList 的内部类 SubList,并不是 ArrayList ,而是 ArrayList 的一个视图,对于 SubList 子列表的所有操作最终会反映到原列表上。
 12.【强制】在 subList 场景中,高度注意对原集合元素个数的修改,会导致子列表的遍历、增加、删除均产生 ConcurrentModificationException 异常。
 13.【强制】使用集合转数组的方法,必须使用集合的 toArray(T[] array),传入的是类型完全 一样的数组,大小就是 list.size()。
@@ -220,7 +221,7 @@ B) 领域模型命名规约
 	String[] str = new String[] { "a", "b" };
 	List list = Arrays.asList(str);
 	第一种情况:list.add("c"); 运行时异常。 第二种情况:str[0]= "gujin"; 那么 list.get(0)也会随之修改。
-15.【强制】泛型通配符<? extends T>来接收返回的数据,此写法的泛型集合不能使用 add 方法。 
+15.【强制】泛型通配符<? extends T>来接收返回的数据,此写法的泛型集合不能使用 add 方法。
 	说明:苹果装箱后返回一个<? extends Fruits>对象,此对象就不能往里加任何水果,包括苹 果。
 16.【强制】不要在 foreach 循环里进行元素的 remove/add 操作。remove 元素请使用 Iterator 方式,如果并发操作,需要对 Iterator 对象加锁。
 	反例:
@@ -241,7 +242,7 @@ B) 领域模型命名规约
        }
 17.【强制】在 JDK7 版本以上,Comparator 要满足自反性,传递性,对称性,不然 Arrays.sort, Collections.sort 会报 IllegalArgumentException 异常。
 	说明:
-	1) 自反性:x,y 的比较结果和 y,x 的比较结果相反。 
+	1) 自反性:x,y 的比较结果和 y,x 的比较结果相反。
 	2) 传递性:x>y,y>z,则 x>z。
 	3) 对称性:x=y,则 x,z 比较结果和 y,z 比较结果相同。
        反例:
@@ -260,8 +261,8 @@ B) 领域模型命名规约
   集合类              	Key      	Value    	Super      	说明    
   HashTable        	不允许为 null	不允许为 null	Dictionary 	线程安全  
   ConcurrentHashMap	不允许为 null	不允许为 null	AbstractMap	线程局部安全
-  TreeMap          	不允许为 null	允许为 null 	AbstractMap	线程不安全 
-  HashMap          	允许为 null 	允许为 null 	AbstractMap	线程不安全 
+  TreeMap          	不允许为 null	允许为 null 	AbstractMap	线程不安全
+  HashMap          	允许为 null 	允许为 null 	AbstractMap	线程不安全
 	反例:很多同学认为 ConcurrentHashMap 是可以置入 null 值。在批量翻译场景中,子线程分发时,出现置入 null 值的情况,但主线程没有捕获到此异常,导致排查困难。
 12.【参考】合理利用好集合的有序性(sort)和稳定性(order),避免集合的无序性(unsort)和不 稳定性(unorder)带来的负面影响。
 	说明:稳定性指集合每次遍历的元素次序是一定的。有序性是指遍历的结果是按某种比较规则依次排列的。如:ArrayList 是 order/unsort;HashMap 是 unorder/unsort;TreeSet 是 order/sort。
@@ -358,7 +359,7 @@ B) 领域模型命名规约
 	反例:“TCP 连接超时”解释成“传输控制协议连接超时”,理解反而费脑筋。
 42.【推荐】代码修改的同时,注释也要进行相应的修改,尤其是参数、返回值、异常、核心逻辑等的修改。
 	说明:代码与注释更新不同步,就像路网与导航软件更新不同步一样,如果导航软件严重滞后, 就失去了导航的意义。
-43.【参考】注释掉的代码尽量要配合说明,而不是简单的注释掉。 
+43.【参考】注释掉的代码尽量要配合说明,而不是简单的注释掉。
 	说明:代码被注释掉有两种可能性:
 		1) 后续会恢复此段代码逻辑。
 		2) 永久不用。前者如果没有备注信息,难以知晓注释动机。后者建议直接删掉(代码仓库保存了历史代码)。
@@ -413,8 +414,8 @@ B) 领域模型命名规约
 	1)使用抛异常返回方式,调用方如果没有捕获到就会产生运行时错误。
 	2)如果不加栈信息,只是 new 自定义异常,加入自己的理解的 error message,对于调用 端解决问题的帮助不会太多。如果加了栈信息,在频繁调用出错的情况下,数据序列化和传输 的性能损耗也是问题。
 12.【推荐】定义时区分 unchecked / checked 异常,避免直接使用 RuntimeException 抛出,更 不允许抛出 Exception 或者 Throwable,应使用有业务含义的自定义异常。推荐业界已定义过 的自定义异常,如:DaoException / ServiceException 等。
-13.【参考】避免出现重复的代码(Don’t Repeat Yourself),即 DRY 原则。 
-	说明:随意复制和粘贴代码,必然会导致代码的重复,在以后需要修改时,需要修改所有的副 本,容易遗漏。必要时抽取共性方法,或者抽象公共类,甚至是共用模块。 
+13.【参考】避免出现重复的代码(Don’t Repeat Yourself),即 DRY 原则。
+	说明:随意复制和粘贴代码,必然会导致代码的重复,在以后需要修改时,需要修改所有的副 本,容易遗漏。必要时抽取共性方法,或者抽象公共类,甚至是共用模块。
 	正例:一个类中有多个 public 方法,都需要进行数行相同的参数校验操作,这个时候请抽取:
 	private boolean checkParam(DTO dto){...}
 ```
@@ -431,7 +432,7 @@ B) 领域模型命名规约
 	说明:logger.debug("Processing trade with id: " + id + " symbol: " + symbol); 如果日志级别是 warn,上述日志不会打印,但是会执行字符串拼接操作,如果 symbol 是对象,会 执行 toString()方法,浪费了系统资源,执行了上述操作,最终日志却没有打印。 正例:(条件)
 		if (logger.isDebugEnabled()) {
 			logger.debug("Processing trade with id: " + id + " symbol: " + symbol);
-		} 
+		}
 	正例:(占位符)
 		logger.debug("Processing trade with id: {} and symbol : {} ", id, symbol);
 67.【强制】避免重复打印日志,浪费磁盘空间,务必在 log4j.xml 中设置 additivity=false。 正例:<logger name="com.taobao.ecrm.member.config" additivity="false">
@@ -462,9 +463,9 @@ B) 领域模型命名规约
 	正例:tiger_task / tiger_reader / mpp_config
 11.【推荐】库名与应用名称尽量一致。
 12.【推荐】如果修改字段含义或对字段表示的状态追加时,需要及时更新字段注释。
-13.【推荐】字段允许适当冗余,以 高性能,但是必须考虑数据同步的情况。冗余字段应遵循: 
+13.【推荐】字段允许适当冗余,以 高性能,但是必须考虑数据同步的情况。冗余字段应遵循:
 	1)不是频繁修改的字段。
-	2)不是 varchar 超长字段,更不能是 text 字段。 
+	2)不是 varchar 超长字段,更不能是 text 字段。
 	正例:各业务线经常冗余存储商品名称,避免查询时需要调用 IC 服务获取。
 	14.【推荐】单表行数超过 500 万行或者单表容量超过 2GB,才推荐进行分库分表。 说明:如果预计三年后的数据量根本达不到这个级别,请不要在创建表时就分库分表。 反例:某业务三年总数据量才2万行,却分成1024张表,问:你为什么这么设计?答:分1024 张表,不是标配吗?
 	15.【参考】合适的字符存储长度,不但节约数据库表空间、节约索引存储,更重要的是 升检索 速度。
@@ -490,15 +491,15 @@ B) 领域模型命名规约
 	SELECT a.* FROM 表 1 a, (select id from 表 1 where 条件 LIMIT 100000,20 ) b where a.id=b.id
 88.【推荐】 SQL 性能优化的目标:至少要达到 range 级别,要求是 ref 级别,如果可以是 consts最好。
 	说明:
-	1)consts 单表中最多只有一个匹配行(主键或者唯一索引),在优化阶段即可读取到数据。 
+	1)consts 单表中最多只有一个匹配行(主键或者唯一索引),在优化阶段即可读取到数据。
 	2)ref 指的是使用普通的索引。(normal index)
 	3)range 对索引进范围检索。
 	反例:explain 表的结果,type=index,索引物理文件全扫 ,速度非常慢,这个 index 级别 比较 range 还低,与全表扫 是小巫见大巫。
 89.【推荐】建组合索引的时候,区分度最高的在最左边。
 	正例:如果 where a=? and b=? ,a 列的几乎接近于唯一值,那么只需要单建 idx_a 索引即可。
 	说明:存在非等号和等号混合判断条件时,在建索引时,请把等号条件的列前置。如:where a>? and b=? 那么即使 a 的区分度更高,也必须把 b 放在索引的最前列。
-10.【参考】创建索引时避免有如下极端误解: 
-	1)误认为一个查询就需要建一个索引。 
+10.【参考】创建索引时避免有如下极端误解:
+	1)误认为一个查询就需要建一个索引。
 	2)误认为索引会消耗空间、严重拖慢更新和新增速度。
 	3)误认为唯一索引一律需要在应用层通过“先查后插”方式解决。
 ```
@@ -510,11 +511,11 @@ B) 领域模型命名规约
 92.【强制】当某一列的值全是 NULL 时,count(col)的返回结果为 0,但 sum(col)的返回结果为 NULL,因此使用 sum()时需注意 NPE 问题。
 	正例:可以使用如下方式来避免 sum 的 NPE 问题:SELECT IF(ISNULL(SUM(g)),0,SUM(g)) FROM table;
 93.【强制】使用 ISNULL()来判断是否为 NULL 值。注意:NULL 与任何值的直接比较都为 NULL,说明:
-	1) NULL<>NULL的返回结果是NULL,不是false。 
-	2) NULL=NULL的返回结果是NULL,不是true。 
+	1) NULL<>NULL的返回结果是NULL,不是false。
+	2) NULL=NULL的返回结果是NULL,不是true。
 	3) NULL<>1的返回结果是NULL,而不是true。
 94.【强制】在代码中写分页查询逻辑时,若 count 为 0 应直接返回,避免执行后面的分页语句。
-94.【强制】不得使用外键与级联,一切外键概念必须在应用层解决。 
+94.【强制】不得使用外键与级联,一切外键概念必须在应用层解决。
 	说明:(概念解释)学生表中的 student_id 是主键,那么成绩表中的 student_id 则为外键。 如果更新学生表中的 student_id,同时触发成绩表中的 student_id 更新,则为级联更新。外键与级联更新适用于单机低并发,不适合分布式、高并发集群;级联更新是强阻塞,存在数据 库更新风暴的风险;外键影响数据库的插入速度。
 95.【强制】禁止使用存储过程,存储过程难以调试和扩展,更没有移植性。
 96.【强制】IDB 数据订正时,删除和修改记录时,要先 select,避免出现误删除,确认无误才能  交执行。
@@ -576,7 +577,7 @@ B) 领域模型命名规约
 		正例:tc-client / uic-api / tair-tool
 	3) Version:详细规定参考下方。
 111.【强制】二方库版本号命名方式:主版本号.次版本号.修订号
-	1) 主版本号:当做了不兼容的API修改,或者增加了能改变产品方向的新功能。 
+	1) 主版本号:当做了不兼容的API修改,或者增加了能改变产品方向的新功能。
 	2) 次版本号:当做了向下兼容的功能性新增(新增类、接口等)。
 	3) 修订号:修复bug,没有修改方法签名的功能加强,保持API兼容性。
 112.【强制】线上应用不要依赖 SNAPSHOT 版本(安全包除外);正式发布的类库必须使用 RELEASE 版本号升级+1 的方式,且版本号不允许覆盖升级,必须去中央仓库进行查证。
@@ -594,11 +595,11 @@ B) 领域模型命名规约
 	数组操作:ArrayUtils(org.apache.commons.lang3.ArrayUtils)
 	集合操作:CollectionUtils(org.apache.commons.collections4.CollectionUtils)除上面以外还有NumberUtils、DateFormatUtils、DateUtils等优先使用org.apache.commons.lang3 这个包下的,不要使用 org.apache.commons.lang 包下面 的。
 	原因是 commons.lang 这个包是从 JDK1.2 开始支持的所以很多 1.5/1.6 的特性是不 支持的,例如:泛型。
-118.【推荐】所有 pom 文件中的依赖声明放在<dependencies>语句块中,所有版本仲裁放在 <dependencyManagement>语句块中。 
+118.【推荐】所有 pom 文件中的依赖声明放在<dependencies>语句块中,所有版本仲裁放在 <dependencyManagement>语句块中。
 	说明:<dependencyManagement>里只是声明版本,并不实现引入,因此子项目需要显式的声明依赖,version 和 scope 都读取自父 pom。而<dependencies>所有声明在主 pom 的<dependencies > 里的依赖都会自动引入,并默认被所有的子项目继承。
 10.【推荐】二方库尽量不要有配置项,最低限度不要再增加配置项。
-11.【参考】为避免应用二方库的依赖冲突问题,二方库发布者应当遵循以下原则: 
-	1)精简可控原则。移除一切不必要的 API 和依赖,只包含 Service API、必要的领域模型对 象、Utils 类、常量、枚举等。如果依赖其它二方库,尽量是 provided 引入,让二方库使用 者去依赖具体版本号;无 log 具体实现,只依赖日志框架。 
+11.【参考】为避免应用二方库的依赖冲突问题,二方库发布者应当遵循以下原则:
+	1)精简可控原则。移除一切不必要的 API 和依赖,只包含 Service API、必要的领域模型对 象、Utils 类、常量、枚举等。如果依赖其它二方库,尽量是 provided 引入,让二方库使用 者去依赖具体版本号;无 log 具体实现,只依赖日志框架。
 	2)稳定可追溯原则。每个版本的变化应该被记录,二方库由谁维护,源码在哪里,都需要能 方便查到。除非用户主动升级版本,否则公共二方库的行为不应该发生变化。
 ```
 ### 服务器规约
@@ -607,7 +608,7 @@ B) 领域模型命名规约
 	说明:操作系统默认 240 秒后,才会关闭处于 time_wait 状态的连接,在高并发访问下,服务器端会因为处于 time_wait 的连接数太多,可能无法建立新的连接,所以需要在服务器上调小 此等待值。
 	正例:在 linux 服务器上请通过变更/etc/sysctl.conf 文件去修改该缺省值(秒):
 		net.ipv4.tcp_fin_timeout = 30
-120.【推荐】调大服务器所支持的最大文件句柄数(File Descriptor,简写为 fd)。 
+120.【推荐】调大服务器所支持的最大文件句柄数(File Descriptor,简写为 fd)。
 	说明:主流操作系统的设计是将 TCP/UDP 连接采用与文件一样的方式去管理,即一个连接对应 于一个 fd。主流的 linux 服务器默认所支持最大 fd 数量为 1024,当并发连接数很大时很容易无法连接,因为 fd 不足而出现“open too many files”错误,导致新的连接无法建立。 建议将 linux服务器所支持的最大句柄数调高数倍(与服务器的内存数量相关)。
 121.【推荐】给JVM设置-XX:+HeapDumpOnOutOfMemoryError参数,让JVM碰到OOM场景时输出dump信息。
 	说明:OOM 的发生是有概率的,甚至有规律地相隔数月才出现一例,出现时的现场信息对查错非常有价值。

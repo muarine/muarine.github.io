@@ -1,10 +1,21 @@
-总结应该如何看源码：
-
+## 请求响应DispatcherServlet处理流程
+### 总结应该如何看源码：
+```wiki
 1. 根据Servlet生命周期(init/service/destroy) 从顶层往下逐个深入，Servlet-HttpServletBean-FrameworkServlet-DispatcherServlet
 
 2. 根据具体RequestMapper接口服务地址，开启debug模式，把断点放置doService方法内，跟踪代码一步步深入理解从请求到响应，DispatcherServlet的调度原理
+```
 
-大概的调用流程
+### 大概的调用流程
+1. 获得HandlerMapping
+2. 获得HandlerExecutionChain
+3. 获得HandleAdapter适配器
+4. 检测并注册Handler的拦截器
+6. 请求参数绑定
+7. 初始化视图容器
+8. handle反射调用Controller method
+9. 装载ModelAndView
+10. 适配ModelAndView
 ```java
 // 开始调度
 protected DispatcherServlet.doDispatch(HttpServletRequest request, HttpServletResponse response)
