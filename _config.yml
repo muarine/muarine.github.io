@@ -1,0 +1,103 @@
+# ---------------- #
+#   Main Configs   #
+# ---------------- #
+baseurl:
+url: https://muarine.github.io/
+date_format: "ordinal"
+title: MyBlog
+subtitle: "蜗牛"
+description: "毛运的个人博客"
+keywords: 毛运
+favicon: /favicon.ico
+timezone: Asia/BeiJing
+encoding: "utf-8"
+source_code: https://github.com/muarine/muarine.github.io
+side_bar_repo_limit: 5
+
+# ---------------- #
+#      Author      #
+# ---------------- #
+author: 毛运
+organization: 暂无
+organization_url: https://blog.muarine.com/
+location: 北京
+email: maoyun0903@163.com
+
+# ---------------- #
+#    Navigation    #
+# ---------------- #
+navs:
+  -
+    href: /
+    label: 首页
+
+  -
+    href: /categories/
+    label: 分类
+
+  -
+    href: /MySkillTree/
+    label: 我的技能树
+
+  -
+    href: /about/
+    label: 关于我
+
+# ---------------- #
+#       RSS        #
+# ---------------- #
+subscribe_rss: /feed.xml
+
+# ---------------- #
+#      Jekyll      #
+# ---------------- #
+markdown: kramdown
+kramdown:
+    input: GFM
+highlighter: rouge
+paginate: 8
+lsi: false
+quiet: false
+excerpt_separator: "\n\n"
+permalink: /:year/:month/:day/:title/
+gems:
+    - rouge
+#     - jekyll-html-pipeline
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-feed
+    - jemoji
+#     - jekyll-mentions
+collections:
+    wiki:
+        output: true
+        permalink: /wiki/:path/
+
+# ---------------- #
+#      Socials     #
+# ---------------- #
+github_username: muarine
+facebook_username: muarine
+weibo_username: muarine
+zhihu_username: 毛运
+twitter_username: muarine
+
+# ---------------- #
+#      Comments    #
+# ---------------- #
+# support provider: disqus, changyan
+comments_provider: disqus
+# !!!重要!!! 请修改下面用户名为你自己申请的
+disqus_username: muarine-github-io
+
+# ---------------- #
+#    Analytics     #
+# ---------------- #
+# google:
+#     analytics_id: UA-82434482-1
+
+# ---------------- #
+#      Datas       #
+# ---------------- #
+skill_language_keywords: [Java, Golang, NodeJS, Python]
+skill_web_app_keywords: [JavaEE ,Spring MVC ,JPA , MyBatis,Redis ,Spring Cloud ,MySql,Flume,Storm]
