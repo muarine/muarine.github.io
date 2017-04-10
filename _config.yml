@@ -6,13 +6,13 @@ url: https://muarine.github.io/
 date_format: "ordinal"
 title: 毛茸茸
 subtitle: "毛运的个人博客"
-description: "毛运的个人博客"
-keywords: 毛运
+description: "Muarine's Blog"
+keywords: "点滴积累"
 favicon: /favicon.ico
 timezone: Asia/BeiJing
 encoding: "utf-8"
 source_code: https://github.com/muarine/muarine.github.io
-side_bar_repo_limit: 5
+side_bar_repo_limit: 0
 
 # ---------------- #
 #      Author      #
