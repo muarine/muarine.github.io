@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="google-site-verification" content="KrB23GIOU5WYje5ZqEg8Hr4GAb5rr3FHbCBVfbzfvOQ" />
+    <title>Println Fprintf Printf 占位符 &mdash; 毛茸茸</title>
+    <link rel="stylesheet" href="/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/assets/css/components/collection.css">
+    <link rel="stylesheet" href="/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="/assets/css/globals/common.css">
+    <link rel="stylesheet" href="/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2017/03/20/print/">
+    <link rel="alternate" type="application/atom+xml" title="毛茸茸" href="/feed.xml">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <meta property="og:title" content="Println Fprintf Printf 占位符">
+      
+    <meta name="keywords" content="毛运,博客">
+    <meta name="og:keywords" content="毛运,博客">
+      
+    <meta name="description" content="Println Fprintf Printf 占位符">
+    <meta name="og:description" content="Println Fprintf Printf 占位符">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2017/03/20/print/">
+    <meta property="og:site_name" content="毛茸茸">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2017-03-20">
+    
+    <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="/" title="毛茸茸"><span class="octicon octicon-mark-github"></span> 毛茸茸</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="/MySkillTree/" class=" site-header-nav-item" target="" title="我的技能树">我的技能树</a>
+                
+                <a href="/about/" class=" site-header-nav-item" target="" title="关于我">关于我</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="Println Fprintf">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Println Fprintf Printf 占位符</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2017/03/20
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="/categories/#golang" title="golang">golang</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h2 id="println-fprintf-printf-占位符">Println Fprintf Printf 占位符</h2>
+
+<p>fmt.Println 打印值</p>
+
+<p>fmt.Fprintf 指定输出对象</p>
+
+<p>fmt.Printf(format string) 输出字符串</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%v</td>
+      <td>结构体字段值</td>
+    </tr>
+    <tr>
+      <td>%+v</td>
+      <td>结构体字段和字段值</td>
+    </tr>
+    <tr>
+      <td>%#v</td>
+      <td>结构体运行的源代码片段</td>
+    </tr>
+    <tr>
+      <td>%T</td>
+      <td>打印值的类型</td>
+    </tr>
+    <tr>
+      <td>%t</td>
+      <td>格式化布尔值</td>
+    </tr>
+    <tr>
+      <td>%d</td>
+      <td>十进制格式化</td>
+    </tr>
+    <tr>
+      <td>%b</td>
+      <td>binary 二进制格式化</td>
+    </tr>
+    <tr>
+      <td>%o</td>
+      <td>八进制格式化</td>
+    </tr>
+    <tr>
+      <td>%x</td>
+      <td>十六进制格式化，字母形式为小写 a-f</td>
+    </tr>
+    <tr>
+      <td>%X</td>
+      <td>十六进制格式化，字母形式为小写 A-F</td>
+    </tr>
+    <tr>
+      <td>%U</td>
+      <td>Unicode格式：U+1234，等同于 “U+%04X”</td>
+    </tr>
+    <tr>
+      <td>%c</td>
+      <td>整数对应的ascii码值</td>
+    </tr>
+    <tr>
+      <td>%x</td>
+      <td>Hexadecimal 输出十六进制值</td>
+    </tr>
+    <tr>
+      <td>%f</td>
+      <td>浮点型格式化，如有%5.2f 表示占5个字符位右对齐并保留两位小数， %-5.2f 同上但是左对齐</td>
+    </tr>
+    <tr>
+      <td>%e</td>
+      <td>科学计数法</td>
+    </tr>
+    <tr>
+      <td>%E</td>
+      <td>科学计数法</td>
+    </tr>
+    <tr>
+      <td>%s</td>
+      <td>输出字符串, %6s 表示占六个字符并右对齐，%-6s同上但是左对齐</td>
+    </tr>
+    <tr>
+      <td>%p</td>
+      <td>输出指针内存地址值</td>
+    </tr>
+    <tr>
+      <td>%q</td>
+      <td>输出指针内存地址值</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>普通占位符</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>说明</th>
+      <th>举例</th>
+      <th>输出</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%v</td>
+      <td>相应值的默认格式。只输出字段值</td>
+      <td>Printf(“%v”, people)</td>
+      <td>{zhangsan}</td>
+    </tr>
+    <tr>
+      <td>%+v</td>
+      <td>打印结构体时，会添加字段名</td>
+      <td>Printf(“%+v”, people)</td>
+      <td>{Name:zhangsan}</td>
+    </tr>
+    <tr>
+      <td>%#v</td>
+      <td>相应值的Go语法表示，打印包和类型、结构体</td>
+      <td>Printf(“#v”, people)</td>
+      <td>main.Human{Name:”zhangsan”}</td>
+    </tr>
+    <tr>
+      <td>%T</td>
+      <td>相应值的类型的Go语法表示，类型</td>
+      <td>Printf(“%T”, people)</td>
+      <td>main.Human</td>
+    </tr>
+    <tr>
+      <td>%%</td>
+      <td>字面上的百分号，并非值的占位符</td>
+      <td>Printf(“%%”)</td>
+      <td>%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>布尔占位符</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>说明</th>
+      <th>举例</th>
+      <th>输出</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%t</td>
+      <td>true/false</td>
+      <td>Printf(“%b”, true)</td>
+      <td>true</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>整数占位符</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>说明</th>
+      <th>举例</th>
+      <th>输出</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%b</td>
+      <td>二进制表示</td>
+      <td>Printf(“%b”, 5)</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <td>%c</td>
+      <td>相应Unicode码点所表示的字符</td>
+      <td>Printf(“%c”, 0x4E2D)</td>
+      <td>中</td>
+    </tr>
+    <tr>
+      <td>%d</td>
+      <td>十进制表示</td>
+      <td>Printf(“%d”, 0x12)</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>%o</td>
+      <td>八进制表示</td>
+      <td>Printf(“%d”, 10)</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>%q</td>
+      <td>单引号围绕的字符字面值，由Go语法安全地转义</td>
+      <td>Printf(“%q”, 0x4E2D)</td>
+      <td>‘中’</td>
+    </tr>
+    <tr>
+      <td>%x</td>
+      <td>十六进制表示，字母形式为小写 a-f</td>
+      <td>Printf(“%x”, 13)</td>
+      <td>d</td>
+    </tr>
+    <tr>
+      <td>%X</td>
+      <td>十六进制表示，字母形式为大写 A-F</td>
+      <td>Printf(“%x”, 13)</td>
+      <td>D</td>
+    </tr>
+    <tr>
+      <td>%U</td>
+      <td>Unicode格式：U+1234，等同于 “U+%04X”</td>
+      <td>Printf(“%U”, 0x4E2D)</td>
+      <td>U+4E2D</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>浮点数和复数的组成部分（实部和虚部）
+| 占位符  | 说明                                       | 举例                                       | 输出           |
+| —- | —————————————- | —————————————- | ———— |
+| %b   | 无小数部分的，指数为二的幂的科学计数法，与 strconv.FormatFloat 的 ‘b’ 转换格式一致。例如 -123456p-78 |                                          |              |
+| %e   | 科学计数法，例如 -1234.456e+78                   | Printf(“%e”, 10.2)                       | 1.020000e+01 |
+| %E   | 科学计数法，例如 -1234.456E+78                   | Printf(“%e”, 10.2)                       | 1.020000E+01 |
+| %f   | 有小数点而无指数，例如 123.456                      | Printf(“%f”, 10.2)                       | 10.200000    |
+| %g   | 根据情况选择 %e 或 %f 以产生更紧凑的（无末尾的0）输出          | Printf(“%g”, 10.20)                      | 10.2         |
+| %G   | 根据情况选择 %E 或 %f 以产生更紧凑的（无末尾的0）输出          | Printf(“%G”, 10.20+2i)                   | (10.2+2i)    |
+| %q   | 双引号围绕的字符串，由Go语法安全地转义                     | Printf(“%q”, “Go语言”)                     | “Go语言”       |
+| %x   | 十六进制，小写字母，每字节两个字符                        | Printf(“%x”, “golang”)                   | 676f6c616e67 |
+| %X   | 十六进制，大写字母，每字节两个字符                        | Printf(“%X”, “golang”)         676F6C616E67) | (10.2+2i)    |</p>
+
+<p>字符串与字节切片
+浮点数和复数的组成部分（实部和虚部）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>说明</th>
+      <th>举例</th>
+      <th>输出</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%s</td>
+      <td>输出字符串表示（string类型或[]byte)</td>
+      <td>Printf(“%s”, []byte(“Go语言”))</td>
+      <td>Go语言</td>
+    </tr>
+    <tr>
+      <td>%q</td>
+      <td>双引号围绕的字符串，由Go语法安全地转义</td>
+      <td>Printf(“%q”, “Go语言”)</td>
+      <td>“Go语言”</td>
+    </tr>
+    <tr>
+      <td>%x</td>
+      <td>十六进制，小写字母，每字节两个字符</td>
+      <td>Printf(“%x”, “golang”)</td>
+      <td>676f6c616e67</td>
+    </tr>
+    <tr>
+      <td>%X</td>
+      <td>十六进制，大写字母，每字节两个字符</td>
+      <td>Printf(“%X”, “golang”)</td>
+      <td>676F6C616E67</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>指针</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>说明</th>
+      <th>举例</th>
+      <th>输出</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%p</td>
+      <td>十六进制表示，前缀 0x</td>
+      <td>Printf(“%p”, &amp;people)</td>
+      <td>0x4f57f0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>其它标记</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>占位符</th>
+      <th>说明</th>
+      <th>举例</th>
+      <th>输出</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>+</td>
+      <td>总打印数值的正负号；对于%q（%+q）保证只输出ASCII编码的字符</td>
+      <td>Printf(“%+q”, “中文”)</td>
+      <td>“\u4e2d\u6587”</td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>在右侧而非左侧填充空格（左对齐该区域）</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>#</td>
+      <td>备用格式：为八进制添加前导 0（%#o） 为十六进制添加前导 0x（%#x）或 0X（%#X），为 %p（%#p）去掉前导 0x；</td>
+      <td>Printf(“%#U”, ‘中’)</td>
+      <td>U+4E2D</td>
+    </tr>
+    <tr>
+      <td>’ ‘</td>
+      <td>(空格)为数值中省略的正负号留出空白（% d）；以十六进制（% x, % X）打印字符串或切片时，在字节之间用空格隔开</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>填充前导的0而非空格；对于数字，这会将填充移到正负号之后</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-go highlighter-rouge"><pre class="highlight"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+</span><span class="k">import</span><span class="x"> </span><span class="s">"fmt"</span><span class="x">
+</span><span class="k">import</span><span class="x"> </span><span class="s">"os"</span><span class="x">
+</span><span class="k">type</span><span class="x"> </span><span class="n">point</span><span class="x"> </span><span class="k">struct</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="kt">int</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//Go 为常规 Go 值的格式化设计提供了多种打印方式。例如，这里打印了 point 结构体的一个实例。</span><span class="x">
+    </span><span class="n">p</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">point</span><span class="p">{</span><span class="m">1</span><span class="p">,</span><span class="x"> </span><span class="m">2</span><span class="p">}</span><span class="x">
+  	</span><span class="c">// %v 只输出结构体中的字段值</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">p</span><span class="p">)</span><span class="x"> </span><span class="c">// {1 2}</span><span class="x">
+    </span><span class="c">//如果值是一个结构体，%+v 的格式化输出内容将包括结构体的字段名。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">p</span><span class="p">)</span><span class="x"> </span><span class="c">// {x:1 y:2}</span><span class="x">
+    </span><span class="c">//%#v 形式则输出这个值的 Go 语法表示。例如，值的运行源代码片段。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%#v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">p</span><span class="p">)</span><span class="x"> </span><span class="c">// main.point{x:1, y:2}</span><span class="x">
+    </span><span class="c">//需要打印值的类型，使用 %T。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%T</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">p</span><span class="p">)</span><span class="x"> </span><span class="c">// main.point</span><span class="x">
+    </span><span class="c">//格式化布尔值是简单的。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%t</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="no">true</span><span class="p">)</span><span class="x"> </span><span class="c">// true</span><span class="x">
+    </span><span class="c">//格式化整形数有多种方式，使用 %d进行标准的十进制格式化。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">123</span><span class="p">)</span><span class="x"> </span><span class="c">// 123</span><span class="x">
+    </span><span class="c">//这个输出二进制表示形式。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%b</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">14</span><span class="p">)</span><span class="x"> </span><span class="c">//Binary 1110</span><span class="x">
+    </span><span class="c">//这个输出给定十进制数的对应字符。 超出打印空，不会报错</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">33</span><span class="p">)</span><span class="x"> </span><span class="c">// !</span><span class="x">
+    </span><span class="c">// %x 提供十六进制编码。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%x</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">456</span><span class="p">)</span><span class="x"> </span><span class="c">//Hexadecimal 1c8</span><span class="x">
+    </span><span class="c">//对于浮点型同样有很多的格式化选项。使用 %f 进行最基本的十进制格式化。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">78.9</span><span class="p">)</span><span class="x"> </span><span class="c">// 78.900000</span><span class="x">
+    </span><span class="c">//%e 和 %E 将浮点型格式化为（稍微有一点不同的）科学技科学记数法表示形式。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%e</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">123400000.0</span><span class="p">)</span><span class="x"> </span><span class="c">// 1.234000e+08</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%E</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">123400000.0</span><span class="p">)</span><span class="x"> </span><span class="c">// 1.234000E+08</span><span class="x">
+    </span><span class="c">//使用 %s 进行基本的字符串输出。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="s">"</span><span class="se">\"</span><span class="s">string</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span><span class="x"> </span><span class="c">// "string"</span><span class="x">
+    </span><span class="c">//像 Go 源代码中那样带有双引号的输出，使用 %q。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%q</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="s">"</span><span class="se">\"</span><span class="s">string</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span><span class="x"> </span><span class="c">// "\"string\""</span><span class="x">
+    </span><span class="c">//和上面的整形数一样，%x 输出使用 base-16 编码的字符串，每个字节使用 2 个字符表示。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%x</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="s">"hex this"</span><span class="p">)</span><span class="x"> </span><span class="c">// 6865782074686973</span><span class="x">
+    </span><span class="c">//要输出一个指针的值，使用 %p。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="o">&amp;</span><span class="n">p</span><span class="p">)</span><span class="x"> </span><span class="c">// 0x1040a128</span><span class="x">
+    </span><span class="c">//当输出数字的时候，你将经常想要控制输出结果的宽度和精度，可以使用在 % 后面使用数字来控制输出宽度。默认结果使用右对齐并且通过空格来填充空白部分。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"|%6d|%6d|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">12</span><span class="p">,</span><span class="x"> </span><span class="m">345</span><span class="p">)</span><span class="x"> </span><span class="c">// |    12|   345|</span><span class="x">
+    </span><span class="c">//你也可以指定浮点型的输出宽度，同时也可以通过 宽度.精度 的语法来指定输出的精度。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"|%6.2f|%6.2f|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">1.2</span><span class="p">,</span><span class="x"> </span><span class="m">3.45</span><span class="p">)</span><span class="x"> </span><span class="c">// |  1.20|  3.45|</span><span class="x">
+    </span><span class="c">//要最对齐，使用 - 标志。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"|%-6.2f|%-6.2f|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="m">1.2</span><span class="p">,</span><span class="x"> </span><span class="m">3.45</span><span class="p">)</span><span class="x"> </span><span class="c">// |1.20  |3.45  |</span><span class="x">
+    </span><span class="c">//你也许也想控制字符串输出时的宽度，特别是要确保他们在类表格输出时的对齐。这是基本的右对齐宽度表示。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"|%6s|%6s|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="s">"foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"b"</span><span class="p">)</span><span class="x">	</span><span class="c">// |   foo|     b|</span><span class="x">
+    </span><span class="c">//要左对齐，和数字一样，使用 - 标志。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"|%-6s|%-6s|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="s">"foo"</span><span class="p">,</span><span class="x"> </span><span class="s">"b"</span><span class="p">)</span><span class="x"> </span><span class="c">// |foo   |b     |</span><span class="x">
+    </span><span class="c">//到目前为止，我们已经看过 Printf了，它通过 os.Stdout输出格式化的字符串。Sprintf 则格式化并返回一个字符串而不带任何输出。</span><span class="x">
+    </span><span class="n">s</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"a %s"</span><span class="p">,</span><span class="x"> </span><span class="s">"string"</span><span class="p">)</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="x"> </span><span class="c">// a string</span><span class="x">
+    </span><span class="c">//你可以使用 Fprintf 来格式化并输出到 io.Writers而不是 os.Stdout。</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span><span class="x"> </span><span class="s">"an %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="s">"error"</span><span class="p">)</span><span class="x"> </span><span class="c">//an error</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre>
+</div>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+  
+      
+        
+        <!-- Disqus Protection, see https://github.com/mzlogin/mzlogin.github.io/issues/2 -->
+        
+        
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page.url = 'http://localhost:4000/2017/03/20/print/';
+              this.page.identifier = '/2017/03/20/print/';
+              this.page.title = 'Println Fprintf Printf 占位符';
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+
+              s.type = 'text/javascript';
+              s.async = true;
+              var shortname = 'muarine-github-io';
+
+              s.src = '//' + shortname + '.disqus.com/embed.js';
+
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        
+      
+    
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+    <button class="btn btn-default" id="site_search_do"><span class="octicon octicon-search"></span></button>
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+<script src="/assets/js/lunr.min.js"></script>
+<script src="/assets/js/search.js"></script>
+
+
+    
+<h3>Post Directory</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © <script>document.write(new Date().getFullYear())</script>
+                    <span title="毛运">毛运</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/muarine/muarine.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="/MySkillTree/" title="我的技能树" target="">我的技能树</a>
+                </li>
+                
+                <li>
+                    <a href="/about/" title="关于我" target="">关于我</a>
+                </li>
+                
+                <li><a href="/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="/assets/js/geopattern.js"></script>
+    <script src="/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+    
+</body>
+</html>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="google-site-verification" content="KrB23GIOU5WYje5ZqEg8Hr4GAb5rr3FHbCBVfbzfvOQ" />
-    <title>About Me &mdash; 毛茸茸</title>
+    <title>maven基础知识 &mdash; 毛茸茸</title>
     <link rel="stylesheet" href="/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="/assets/vendor/octicons/octicons/octicons.css">
@@ -22,26 +22,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/about/">
+    <link rel="canonical" href="http://localhost:4000/2017/04/02/maven/">
     <link rel="alternate" type="application/atom+xml" title="毛茸茸" href="/feed.xml">
     <link rel="shortcut icon" href="/favicon.ico">
     
-    <meta property="og:title" content="About Me">
+    <meta property="og:title" content="maven基础知识">
       
-    <meta name="keywords" content="毛运">
-    <meta name="og:keywords" content="毛运">
+    <meta name="keywords" content="毛运,博客">
+    <meta name="og:keywords" content="毛运,博客">
       
-    <meta name="description" content="没人比我会更恨我自己">
-    <meta name="og:description" content="没人比我会更恨我自己">
+    <meta name="description" content="Maven相关基础">
+    <meta name="og:description" content="Maven相关基础">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/about/">
+    <meta property="og:url" content="http://localhost:4000/2017/04/02/maven/">
     <meta property="og:site_name" content="毛茸茸">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2017-04-02">
     
     <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
@@ -73,72 +75,99 @@
                 
                 <a href="/MySkillTree/" class=" site-header-nav-item" target="" title="我的技能树">我的技能树</a>
                 
-                <a href="/about/" class=" selected  site-header-nav-item" target="" title="关于我">关于我</a>
+                <a href="/about/" class=" site-header-nav-item" target="" title="关于我">关于我</a>
                 
             </nav>
         </div>
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="About Me">
-    <div class="container">
-        <div class="collection-title">
-            <h1 class="collection-header">About Me</h1>
-            
+    <section class="collection-head small geopattern" data-pattern-id="maven基础知识">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">maven基础知识</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2017/04/02
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="/categories/#maven" title="maven">maven</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
- <section class="container content">
-        <div class="columns">
-            <div class="column two-thirds" >
-                <article class="article-content markdown-body">
-                    <p>我是毛运</p>
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h2 id="maven相关基础">Maven相关基础</h2>
 
-<h2 id="skill-keywords">Skill Keywords</h2>
+<h3 id="maven自带的插件都是以maven开头">maven自带的插件都是以maven开头</h3>
 
-<h4 id="software-language-keywords">Software Language Keywords</h4>
-<div class="btn-inline">
-    
-    <button class="btn btn-outline" type="button">Java</button>
-    
-    <button class="btn btn-outline" type="button">Golang</button>
-    
-    <button class="btn btn-outline" type="button">NodeJS</button>
-    
-    <button class="btn btn-outline" type="button">Python</button>
-    
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>自带的插件名</th>
+      <th>应用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>maven-antrun-plugin</td>
+      <td>配置以Ant的方式编写Target， 然后交给该插件的run目标去执行。在一些由Ant往Maven迁移的项目中，该插件尤其有用。此外当你发现需要编写一些自定义程度很高的任务，同时又觉 得Maven不够灵活时，也可以以Ant的方式实现</td>
+    </tr>
+    <tr>
+      <td>maven-assembly-plugin</td>
+      <td>制作项目分发包，该分发包可能包含了项目的可执行文件、源代码、readme、平台脚本等。 支持各种主流的格式如zip、tar.gz、jar和war等， 使用一个名为assembly.xml的元数据文件来表述打包</td>
+    </tr>
+    <tr>
+      <td>maven-checkstyle-plugin</td>
+      <td>检查代码风格</td>
+    </tr>
+    <tr>
+      <td>maven-compiler-plugin</td>
+      <td>编译源文件，可指定JDK版本</td>
+    </tr>
+    <tr>
+      <td>maven-dependency-plugin</td>
+      <td>帮助分析依赖jar， dependency:list能够列出项目最终解析到的依赖列表，dependency:tree能进一步的描绘项目依赖树， dependency:analyze可以告诉你项目依赖潜在的问题，如： 有直接使用到的却未声明的依赖，该目标就会发出警告</td>
+    </tr>
+    <tr>
+      <td>maven-enforcer-plugin</td>
+      <td>maven-enforcer- plugin能够帮助你避免之类问题，它允许你创建一系列规则强制大家遵守，包括设定Java版本、设定Maven版本、禁止某些依赖、禁止 SNAPSHOT依赖</td>
+    </tr>
+    <tr>
+      <td>maven-help-plugin</td>
+      <td>help:system可以打印所有可用的环境变量和Java系统属性， help:effective-pom 打印项目的有效POM  help:effective-settings 打印有效settings</td>
+    </tr>
+    <tr>
+      <td>maven-resources-plugin</td>
+      <td>处理资源文件， 资源文件过滤</td>
+    </tr>
+    <tr>
+      <td>maven-surefire-plugin</td>
+      <td>跳过测试、排除某些 测试类、或者使用一些TestNG</td>
+    </tr>
+  </tbody>
+</table>
 
-<h4 id="web-developer-keywords">Web Developer Keywords</h4>
-<div class="btn-inline">
-    
-    <button class="btn btn-outline" type="button">JavaEE</button>
-    
-    <button class="btn btn-outline" type="button">Spring MVC</button>
-    
-    <button class="btn btn-outline" type="button">JPA</button>
-    
-    <button class="btn btn-outline" type="button">MyBatis</button>
-    
-    <button class="btn btn-outline" type="button">Redis</button>
-    
-    <button class="btn btn-outline" type="button">Spring Cloud</button>
-    
-    <button class="btn btn-outline" type="button">MySql</button>
-    
-    <button class="btn btn-outline" type="button">Flume</button>
-    
-    <button class="btn btn-outline" type="button">Storm</button>
-    
-</div>
-
-                </article>
-                <div class="share">
-                    <div class="share-component"></div>
-                </div>
-                <div class="comment">
-                    
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
   
       
         
@@ -148,9 +177,9 @@
           <div id="disqus_thread"></div>
           <script>
             var disqus_config = function () {
-              this.page.url = 'http://localhost:4000/about/';
-              this.page.identifier = '/about/';
-              this.page.title = 'About Me';
+              this.page.url = 'http://localhost:4000/2017/04/02/maven/';
+              this.page.identifier = '/2017/04/02/maven/';
+              this.page.title = 'maven基础知识';
             };
             (function() { // DON'T EDIT BELOW THIS LINE
               var d = document, s = d.createElement('script');
@@ -171,10 +200,10 @@
     
 
 
-                </div>
-            </div>
-            <div class="column one-third">
-                
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -188,13 +217,22 @@
 <script src="/assets/js/search.js"></script>
 
 
-                <h3>My Popular Repositories</h3>
+    
+<h3>Post Directory</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
 
+<script src="/assets/js/jquery.toc.js"></script>
 
-            </div>
-        </div>
-    </section>
-    <!-- /section.content -->
+  </div>
+</div>
+</section>
+<!-- /section.content -->
 
     <footer class="container">
         <div class="site-footer" role="contentinfo">

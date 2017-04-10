@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="google-site-verification" content="KrB23GIOU5WYje5ZqEg8Hr4GAb5rr3FHbCBVfbzfvOQ" />
-    <title>About Me &mdash; 毛茸茸</title>
+    <title>Restful-API规约 &mdash; 毛茸茸</title>
     <link rel="stylesheet" href="/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="/assets/vendor/octicons/octicons/octicons.css">
@@ -22,26 +22,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/about/">
+    <link rel="canonical" href="http://localhost:4000/2017/04/01/restful-api/">
     <link rel="alternate" type="application/atom+xml" title="毛茸茸" href="/feed.xml">
     <link rel="shortcut icon" href="/favicon.ico">
     
-    <meta property="og:title" content="About Me">
+    <meta property="og:title" content="Restful-API规约">
       
-    <meta name="keywords" content="毛运">
-    <meta name="og:keywords" content="毛运">
+    <meta name="keywords" content="毛运,博客">
+    <meta name="og:keywords" content="毛运,博客">
       
-    <meta name="description" content="没人比我会更恨我自己">
-    <meta name="og:description" content="没人比我会更恨我自己">
+    <meta name="description" content="Restful API 规约">
+    <meta name="og:description" content="Restful API 规约">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/about/">
+    <meta property="og:url" content="http://localhost:4000/2017/04/01/restful-api/">
     <meta property="og:site_name" content="毛茸茸">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2017-04-01">
     
     <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
@@ -73,72 +75,74 @@
                 
                 <a href="/MySkillTree/" class=" site-header-nav-item" target="" title="我的技能树">我的技能树</a>
                 
-                <a href="/about/" class=" selected  site-header-nav-item" target="" title="关于我">关于我</a>
+                <a href="/about/" class=" site-header-nav-item" target="" title="关于我">关于我</a>
                 
             </nav>
         </div>
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="About Me">
-    <div class="container">
-        <div class="collection-title">
-            <h1 class="collection-header">About Me</h1>
-            
+    <section class="collection-head small geopattern" data-pattern-id="Restful-API规约">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Restful-API规约</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2017/04/01
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="/categories/#api" title="api">api</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
- <section class="container content">
-        <div class="columns">
-            <div class="column two-thirds" >
-                <article class="article-content markdown-body">
-                    <p>我是毛运</p>
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h2 id="restful-api-规约">Restful API 规约</h2>
 
-<h2 id="skill-keywords">Skill Keywords</h2>
+<h3 id="与传统http的区别">与传统HTTP的区别</h3>
 
-<h4 id="software-language-keywords">Software Language Keywords</h4>
-<div class="btn-inline">
-    
-    <button class="btn btn-outline" type="button">Java</button>
-    
-    <button class="btn btn-outline" type="button">Golang</button>
-    
-    <button class="btn btn-outline" type="button">NodeJS</button>
-    
-    <button class="btn btn-outline" type="button">Python</button>
-    
-</div>
+<p>REST架构基于标准HTTP方法，包括常用的GET、POST、PUT、PATCH、DELETE、HEAD、OPTIONS等等，将每个用户需求抽象成资源，任何对资源的操作都通过HTTP协议完成，在整个URI中不能出现动词，形如：http://api.muarine.com/demo/persons/zhangsan，对比于传统的URI http://api.muarine.com/demo/persons?name=zhangsan，将用户需求和约束放在URI中</p>
 
-<h4 id="web-developer-keywords">Web Developer Keywords</h4>
-<div class="btn-inline">
-    
-    <button class="btn btn-outline" type="button">JavaEE</button>
-    
-    <button class="btn btn-outline" type="button">Spring MVC</button>
-    
-    <button class="btn btn-outline" type="button">JPA</button>
-    
-    <button class="btn btn-outline" type="button">MyBatis</button>
-    
-    <button class="btn btn-outline" type="button">Redis</button>
-    
-    <button class="btn btn-outline" type="button">Spring Cloud</button>
-    
-    <button class="btn btn-outline" type="button">MySql</button>
-    
-    <button class="btn btn-outline" type="button">Flume</button>
-    
-    <button class="btn btn-outline" type="button">Storm</button>
-    
-</div>
+<h3 id="域名规范">域名规范</h3>
 
-                </article>
-                <div class="share">
-                    <div class="share-component"></div>
-                </div>
-                <div class="comment">
-                    
+<p>对外提供的服务做一个解释说明，一般独占二级域名api，精简URI , 形如：http://api.muarine.com/demo/persons 或者 http://www.muarine.com/api/demo/persons</p>
+
+<h3 id="http-方法实际应用">HTTP 方法实际应用</h3>
+
+<p>GET：访问某个资源单元或者集合，在URI中就做出体现，形如：http://api.muarine.com/demo/persons，http://api.muarine.com/demo/persons/zhangsan</p>
+
+<p>POST：添加目标资源</p>
+
+<p>PUT：全量覆盖更新目标资源</p>
+
+<p>PATCH：局部更新目标资源</p>
+
+<p>DELETE：删除目标资源</p>
+
+<p>HEAD：少见，描述目标资源的元数据信息并放置在响应的报头集合返回给客户端，一般没有主体响应内容</p>
+
+<p>OPTIONS：少见，发送某种“探测”请求来确定目标地址是否有效，比如针对“跨域资源”的预检（Preflight）请求</p>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
   
       
         
@@ -148,9 +152,9 @@
           <div id="disqus_thread"></div>
           <script>
             var disqus_config = function () {
-              this.page.url = 'http://localhost:4000/about/';
-              this.page.identifier = '/about/';
-              this.page.title = 'About Me';
+              this.page.url = 'http://localhost:4000/2017/04/01/restful-api/';
+              this.page.identifier = '/2017/04/01/restful-api/';
+              this.page.title = 'Restful-API规约';
             };
             (function() { // DON'T EDIT BELOW THIS LINE
               var d = document, s = d.createElement('script');
@@ -171,10 +175,10 @@
     
 
 
-                </div>
-            </div>
-            <div class="column one-third">
-                
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -188,13 +192,22 @@
 <script src="/assets/js/search.js"></script>
 
 
-                <h3>My Popular Repositories</h3>
+    
+<h3>Post Directory</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
 
+<script src="/assets/js/jquery.toc.js"></script>
 
-            </div>
-        </div>
-    </section>
-    <!-- /section.content -->
+  </div>
+</div>
+</section>
+<!-- /section.content -->
 
     <footer class="container">
         <div class="site-footer" role="contentinfo">

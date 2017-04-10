@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="google-site-verification" content="KrB23GIOU5WYje5ZqEg8Hr4GAb5rr3FHbCBVfbzfvOQ" />
-    <title>我的技能树 &mdash; 毛茸茸</title>
+    <title>Redis内存优化 &mdash; 毛茸茸</title>
     <link rel="stylesheet" href="/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="/assets/vendor/octicons/octicons/octicons.css">
@@ -22,26 +22,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/MySkillTree/">
+    <link rel="canonical" href="http://localhost:4000/2017/02/25/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
     <link rel="alternate" type="application/atom+xml" title="毛茸茸" href="/feed.xml">
     <link rel="shortcut icon" href="/favicon.ico">
     
-    <meta property="og:title" content="我的技能树">
+    <meta property="og:title" content="Redis内存优化">
       
     <meta name="keywords" content="毛运,博客">
     <meta name="og:keywords" content="毛运,博客">
       
-    <meta name="description" content="暂无">
-    <meta name="og:description" content="暂无">
+    <meta name="description" content="内存优化redisObject内存结构redis存储的所有键值内部定义为redisObject对象，结构如下：">
+    <meta name="og:description" content="内存优化redisObject内存结构redis存储的所有键值内部定义为redisObject对象，结构如下：">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/MySkillTree/">
+    <meta property="og:url" content="http://localhost:4000/2017/02/25/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
     <meta property="og:site_name" content="毛茸茸">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2017-02-25">
     
     <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
@@ -80,12 +82,25 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="我的技能树">
+    <section class="collection-head small geopattern" data-pattern-id="Redis内存优化">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">我的技能树</h1>
+        <h1 class="collection-header">Redis内存优化</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2017/02/25
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="/categories/#Redis" title="Redis">Redis</a>
+          </span>
+          
+        </div>
       </div>
     </div>
   </div>
@@ -96,7 +111,121 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    
+    <h2 id="内存优化">内存优化</h2>
+<h3 id="redisobject内存结构">redisObject内存结构</h3>
+<p>redis存储的所有键值内部定义为redisObject对象，结构如下：</p>
+
+<blockquote>
+  <p>type      数据类型
+encoding  内部编码类型
+lru       LRU计时时钟
+refcount  引用计数
+point     指针</p>
+</blockquote>
+
+<h3 id="如何优化redis内存">如何优化redis内存</h3>
+<ol>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>减少key长度,在实际应用中尽量用缩写，如:系统名</td>
+          <td>项目名:业务名:数据含义，使用缩写</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>减少value长度，实际应用当中常用json存储，推荐在开发中不序列化为字节数组，生产环境中使用google的Snappy压缩工具对json或者对象序列化后再存储</li>
+</ol>
+
+<p>java 类库可参考：https://github.com/xerial/snappy-java 
+maven</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.xerial.snappy<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>snappy-java<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>{version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="共享内存池">共享内存池</h3>
+<p>redis只有整数内存池，在使用其这一特性需要注意，maxmemory+LRU策略冲突</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>config <span class="nb">set </span>maxmemory-policy volatile-lru    // 开启LRU淘汰策略
+<span class="nb">set </span>key:2 99                                // 注入key
+object refcount key:2                       // 查询引用次数
+config <span class="nb">set </span>maxmemory 1GB                    // 设置最大可用内存
+<span class="nb">set </span>key:3 99
+object refcount key:2                       // 查询引用次数，理论上应该出现引用次数为：3，但是结果为：1
+config <span class="nb">set </span>maxmemory-policy volatile-ttl    // 设置非LRU淘汰策略
+<span class="nb">set </span>key:4 99
+object refcount key:4                       // 结果显示引用次数：4
+</code></pre>
+</div>
+
+<h3 id="字符串如何优化">字符串如何优化</h3>
+<p>虽说redis底层用C语言编写，但是实现字符串确实用的内部简单的SDS(simple dynamic string)，那内部存储结构是怎么样的呢？</p>
+
+<blockquote>
+  <p>int len   已用的字符长度
+int free  未使用的字节长度
+char buf[]  存储的字节数组</p>
+</blockquote>
+
+<p>其中删除字符串操作后，内部惰性机制，并不会释放空间</p>
+
+<h2 id="硬件下的优化">硬件下的优化</h2>
+<h3 id="安装前的优化">安装前的优化</h3>
+<ol>
+  <li>vm.overcommit_memory
+0	表示内核将检查是否有足够的可用内存。如果有足够的可用内存，内存申请通过，否则内存申请失败，并把错误返回给应用进程
+1	表示内核允许超量使用内存直到用完为止
+2	表示内核决不过量的(“never overcommit”)使用内存，即系统整个内存地址空间不能超过swap+50%的RAM值，50%是overcommit_ratio默认值，此参数同样支持修改
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"vm.overcommit_memory=1"</span> &gt;&gt; /etc/sysctl.conf
+sysctl vm.overcommit_memory<span class="o">=</span>1
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>设置合理的redis配置文件中的maxmemory阀值</p>
+  </li>
+  <li>linux系统内核参数swappiness
+swappiness的取值范围是0~100，swappiness的值越大，说明操作系统可能使用swap的概率越高，swappiness值越低，表示操作系统更加倾向于使用物理内存。swap的默认值是60
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># 方法一 设置</span>
+<span class="nb">echo</span> <span class="o">{</span>bestvalue<span class="o">}</span> &gt; /proc/sys/vm/swappiness
+<span class="c"># 方法二 追加配置</span>
+<span class="nb">echo </span>vm.swappiness<span class="o">={</span>bestvalue<span class="o">}</span> &gt;&gt; /etc/sysctl.conf
+</code></pre>
+    </div>
+  </li>
+  <li>OOM(out of memory) killer
+由于系统内存被占用完后，将会强制kill非内核进程，所以可以将redis进程被kill的优先级调低
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>value<span class="o">}</span> &gt; /proc/<span class="k">${</span><span class="nv">process_id</span><span class="k">}</span>/oom_adj
+</code></pre>
+    </div>
+    <p>oom_adj在不同的Linux版本的最小值不同，可以参考Linux源码中oom.h(从-15到-17)。当oom_adj设置为最小值时，该进程将不会被OOM killer杀掉</p>
+  </li>
+  <li>核对时间服务</li>
+</ol>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>crontab -e
+0 <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> /usr/sbin/ntpdate ntp.xx.com &gt; /dev/null 2&gt;&amp;1   <span class="c"># 添加定时任务内容</span>
+
+service crond restart
+</code></pre>
+</div>
+
+<ol>
+  <li>
+    <p>ulimit
+Redis建议把当前用户可打开的文件数调整为:10032
+ulimit –Sn {max-open-files}</p>
+  </li>
+  <li>
+    <p>TCP backlog</p>
+  </li>
+</ol>
+
+<p>echo 511 &gt; /proc/sys/net/core/somaxconn</p>
 
     </article>
     <div class="share">
@@ -113,9 +242,9 @@
           <div id="disqus_thread"></div>
           <script>
             var disqus_config = function () {
-              this.page.url = 'http://localhost:4000/MySkillTree/';
-              this.page.identifier = '/MySkillTree/';
-              this.page.title = '我的技能树';
+              this.page.url = 'http://localhost:4000/2017/02/25/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/';
+              this.page.identifier = '/2017/02/25/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/';
+              this.page.title = 'Redis内存优化';
             };
             (function() { // DON'T EDIT BELOW THIS LINE
               var d = document, s = d.createElement('script');
@@ -169,6 +298,7 @@
 </div>
 </section>
 <!-- /section.content -->
+
     <footer class="container">
         <div class="site-footer" role="contentinfo">
             <div class="copyright left mobile-block">
