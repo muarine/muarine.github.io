@@ -68,4 +68,4 @@ com.sun.mail.smtp.SMTPSendFailedException: 501 mail from address must be same as
 ```
 查阅很多资料解释都看不清楚，这里的错误大致意思是：发送方账号和系统管理员账号不一致，答案很简单，就在配置邮箱页面中，搜索“系统管理员邮件地址”（中文版的情况下）即可，若搜索不到，也可以搜索“
 Jenkins Location”
-![邮箱配置](/assets/achives/images/email-config.jpeg)
+![邮箱配置](/assets/achives/images/email-config.png)
