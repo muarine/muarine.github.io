@@ -99,5 +99,5 @@ disqus_username: muarine-github-io
 # ---------------- #
 #      Datas       #
 # ---------------- #
-skill_language_keywords: [Java, Golang, NodeJS, Python]
-skill_web_app_keywords: [JavaEE ,Spring MVC ,JPA , MyBatis,Redis ,Spring Cloud ,MySql,Flume,Storm]
+skill_language_keywords: [Java, Golang, Python]
+skill_web_app_keywords: [Spring MVC ,JPA , MyBatis,Redis ,Spring Cloud ,MySql,Flume,Storm]
