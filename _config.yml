@@ -86,7 +86,7 @@ twitter_username: muarine
 #      Comments    #
 # ---------------- #
 # support provider: disqus, changyan
-comments_provider: disqus
+comments_provider: changyan
 # !!!重要!!! 请修改下面用户名为你自己申请的
 disqus_username: muarine-github-io
 
