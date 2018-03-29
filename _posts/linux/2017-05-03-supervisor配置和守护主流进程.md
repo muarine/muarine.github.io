@@ -34,6 +34,7 @@ killasgroup=false     ;默认为false，向进程组发送kill信号，包括子
 
 ##### redis
 ```config
+[program:redis]
 command=/usr/local/bin/redis-server /etc/redis/6379.conf
 stdout_logfile=/var/log/supervisor/redis.log
 stdout_logfile_maxbytes=1MB
